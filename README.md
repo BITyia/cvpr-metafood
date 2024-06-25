@@ -43,8 +43,10 @@ The structure of repository:
 ## Get Started
 
 ### Installation
+```
+pip install -r requirements.txt
+```
 
-If you wish to use DiffusionNeRF or NeRF2Mesh for multi-view 3D reconstruction, please refer to their respective setup instructions.
 ## Usage
 ### datasets preprocess
 1. Generate corresponding image poses for objects 1 to 15, and create a transforms.json file for training with NeRF-Based methods.
@@ -82,6 +84,10 @@ Then, based on the provided mask information, we implement mesh filtering to obt
 ```
 bash .\colmap_process\colmap_masked_dense_for_all.sh
 ```
+If you want to use DiffusionNeRF or NeRF2Mesh for multi-view 3D reconstruction, please refer to their respective instructions.
+
+And if you want to perform single-view 3D reconstruction, please refer to the instructions for ZeroNVS.
+
 ### mesh refinement
 The mesh refinement operation aims to eliminate holes and noise on the surface of the object. It is mainly implemented through the following two scripts.
 ```
@@ -94,6 +100,7 @@ The model alignment section is mainly used to align with the ground truth Mesh. 
 ```
 python .\alignment\icp_based_transforms.py
 ```
-
-
-
+You may choose to further optimize using the gradient descent method
+```
+python .\alignment\align_gradient_descent.py
+```

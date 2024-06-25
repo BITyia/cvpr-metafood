@@ -1,0 +1,11 @@
+numpy
+opencv-python
+open3d
+matplotlib
+torch
+trimesh
+scipy
+colorama
+tqdm
+pymeshfix
+pyvista
