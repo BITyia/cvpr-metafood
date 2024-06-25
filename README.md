@@ -37,7 +37,7 @@ The structure of repository:
 │   └── scale_results.txt                           # 1~15全部scale估计结果
 │── alignment
 │   ├── align_gradient_descent.py                   # 使用梯度下降方法对齐。
-│   ├──  
+│   ├── icp_based_transforms.py                     # 使用手动粗对齐+icp精对齐的方法
 ```
 
 ## Get Started
@@ -46,8 +46,54 @@ The structure of repository:
 
 If you wish to use DiffusionNeRF or NeRF2Mesh for multi-view 3D reconstruction, please refer to their respective setup instructions.
 ## Usage
+### datasets preprocess
+1. Generate corresponding image poses for objects 1 to 15, and create a transforms.json file for training with NeRF-Based methods.
+```
+bash .\colmap_process\gen_colmap_for_all.sh
+```
+2. Generate dense point clouds of the objects for scale estimation.
+```
+bash .\colmap_process\colmap_dense_for_all.sh
+```
+
 ### scale estimation
+```
+python .\scale_estimate\find_scale.py
+```
+Below is the explanation of the parameters in the file.
+- `data_root`: The root directory where the input data is stored.
+- `save_root`: The directory where the output data will be saved. 
+- `data_name`: The name or identifier for the specific dataset being used. 
+- `colmap_pth`: The subdirectory under the data root where COLMAP sparse reconstruction results are stored. 
+- `ply_name`: The name of the PLY file that contains the fused point cloud data.
+- `chess_h`: The height (number of rows) of the chessboard used for calibration. Here, it's 3.
+- `chess_w`: The width (number of columns) of the chessboard used for calibration. Here, it's 4.
+- `chess_T`: The size of each square on the chessboard in millimeters.
+- `downsample`: The downsample rate for the point cloud. 
+- `std_size`: The standard size for the chessboard size.
+The scale we obtained is saved in the `.\scale_estimate\scale_results.txt` directory.
 
 ### 3d reconstruction
-
+For objects 1 to 15, we first use the colmap dense model as a baseline. For each object's dense point cloud information obtained during the datasets preprocess stage, we first obtain each object's mesh file using the delaunayMesh method.
+```
+bash .\colmap_process\gen_delaunayMesh.sh
+```
+Then, based on the provided mask information, we implement mesh filtering to obtain the final object-level mesh.
+```
+bash .\colmap_process\colmap_masked_dense_for_all.sh
+```
 ### mesh refinement
+The mesh refinement operation aims to eliminate holes and noise on the surface of the object. It is mainly implemented through the following two scripts.
+```
+bash .\mesh_refined\fix_all_mesh.sh     # Fill  holes
+bash .\mesh_refined\smooth_all_mesh.sh  # Smooth the mesh
+```
+
+### model alignment
+The model alignment section is mainly used to align with the ground truth Mesh. We first perform the alignment using manual coarse alignment followed by ICP fine alignment. We provide a visual method for alignment.
+```
+python .\alignment\icp_based_transforms.py
+```
+
+
+
