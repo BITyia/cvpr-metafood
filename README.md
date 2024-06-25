@@ -32,12 +32,13 @@ The structure of repository:
 │       ├── quick_apply_scale.py
 │       ├── quick_get_volumn.py
 │       └── smooth_mesh.py
-└── scale_estimate
+├── scale_estimate
 │   ├── find_scale.py                               # 得到单个物体的scale估计结果。
 │   └── scale_results.txt                           # 1~15全部scale估计结果
 │── alignment
 │   ├── align_gradient_descent.py                   # 使用梯度下降方法对齐。
 │   ├── icp_based_transforms.py                     # 使用手动粗对齐+icp精对齐的方法
+└── requirements.txt
 ```
 
 ## Get Started
