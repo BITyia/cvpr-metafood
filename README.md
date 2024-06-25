@@ -37,7 +37,7 @@ The structure of repository:
 │   └── scale_results.txt                           # 1~15全部scale估计结果
 │── alignment
 │   ├── align_gradient_descent.py                   # 使用梯度下降方法对齐。
-│   ├── icp_based_transforms.py                     # 使用手动粗对齐+icp精对齐的方法
+│   └── icp_based_transforms.py                     # 使用手动粗对齐+icp精对齐的方法
 └── requirements.txt
 ```
 
