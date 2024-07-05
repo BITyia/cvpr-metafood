@@ -35,7 +35,7 @@ do
     sleep 5
 
     # 3. 运行 COLMAP_TO_NERF 脚本;
-    python $PY_COLMAP_TO_NERF --out $DESTINATION_DIR/transforms.json --text $DATASET_DIR/colmap/sparse/0/ --keep_colmap_coords
+    python $PY_COLMAP_TO_NERF --images $DESTINATION_DIR/images --out $DESTINATION_DIR/transforms.json --text $DESTINATION_DIR/colmap/sparse/0/ --keep_colmap_coords
     echo "!!!!!!!!!!!!!!!!!!!!!!!COLMAP_TO_NERF Done!!!!!!!!!!!!!!!!!!!!!!!"
 
     # 4. 转depth
