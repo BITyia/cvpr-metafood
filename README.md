@@ -105,3 +105,41 @@ You may choose to further optimize using the gradient descent method
 ```
 python .\alignment\align_gradient_descent.py
 ```
+
+### Color the Mesh
+
+To merge a colorless mesh with a colored point cloud, we need to download the tool [CloudCompare](https://www.danielgm.net/cc/).
+
+You need following 3D objects:
+
+Colorless mesh: `smoothed_meshed-delaunay_fixed.ply` (Assume that you have completed the refine process and generated this file.)
+
+Colored point cloud: `fused.ply`
+
+Then:
+
+* Open CloudCompare software
+* File - Open - Select `fused.ply` - Apply
+* File - Open - Select `smoothed_meshed-delaunay_fixed.ply` - Apply
+
+Then you should have the following interface:
+
+![](./images/cloudcompare.png)
+
+Then:
+
+* Hold down the Ctrl key, then select both Mesh and Cloud simultaneously.
+
+![](./images/select.png)
+
+Then:
+
+* Edit - Colors - Interpolate from another entity
+
+After interpolating, the mesh should have color.
+
+Then you can delete the cloud, export as you want.
+
+Full demo:
+
+![](./images/demo.gif)
